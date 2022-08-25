@@ -7,6 +7,7 @@ const server = Server({
     games: [Poemomorphism],
     origins: [
         "https://poemo.herokuapp.com",
+        "https://poemomorphism.onrender.com",
         Origins.LOCALHOST_IN_DEVELOPMENT
     ]});
 const PORT = process.env.PORT || 8000;
