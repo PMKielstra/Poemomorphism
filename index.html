@@ -37,7 +37,7 @@
     input:focus {
       outline: none;
     }
-    body div * {
+    body div > * {
       display: block;
     }
     div#lobby *,  div#input * {
@@ -55,12 +55,18 @@
       bottom: 0;
     }
     a {
-      display: inline;
       color: white;
     }
-    div.footer a {
-      display: inline;
+    div#help {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #9E6240;
+      overflow-y: auto;
     }
+
     /* Hack copied from https://stackoverflow.com/questions/3790935/can-i-hide-the-html5-number-input-s-spin-box */
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
@@ -105,6 +111,9 @@
       <input id="gamecode" type="text" placeholder="Enter game code here">
       <a href="#" id="join">Join game</a>
     </div>
+    <div>
+      <a href="#" id="openhelp">What is this?</a>
+    </div>
   </div>
   <div id="game" style="display: none;">
     <div id="poem">
@@ -118,6 +127,27 @@
   <div class="footer">
     <p>Initial poetry prompts by <a href="https://thinkwritten.com/poetry-prompts/">Chell Stein</a>.</p>
   </div>
+  <div id="help" style="display: none;">
+    <div>
+      <p><em>Poemomorphism</em> is digital Consequences.</p>
+      <p>The first player creates a game.  Everybody else joins with their game code.</p>
+      <p>Everybody writes a line of poetry.  Everybody then sees someone else's line and has to continue the poem without context.  Repeat until each poem has as many lines as there are players.</p>
+    </div>
+    <div>
+      <a href="#" id="closehelp">Back</a>
+    </div>
+  </div>
+  <script type="text/javascript">
+    const help = document.getElementById('help');
+
+    document.getElementById('openhelp').onclick = event => {
+      help.style.display = "";
+    };
+
+    document.getElementById('closehelp').onclick = event => {
+      help.style.display = "none";
+    };
+  </script>
   <script src="./src/App.js"></script>
 </body>
 </html>
