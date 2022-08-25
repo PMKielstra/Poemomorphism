@@ -1,2 +1,2 @@
 # Poemomorphism
-Digital Consequences poetry
+Digital Consequences poetry powered by [boardgame.io](boardgame.io).
