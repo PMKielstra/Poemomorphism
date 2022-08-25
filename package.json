@@ -1,0 +1,22 @@
+{
+  "name": "poemomorphism",
+  "version": "1.0.0",
+  "description": "That game where you each write a line of a poem based on the previous one -- but massively parallel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html --open",
+    "serve": "node -r esm src/Server.js",
+    "build": "parcel build index.html --out-dir build"
+  },
+  "author": "Michael Kielstra",
+  "license": "CC0-1.0",
+  "dependencies": {
+    "boardgame.io": "^0.49.12",
+    "esm": "^3.2.25",
+    "koa-static": "^5.0.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}

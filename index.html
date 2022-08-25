@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Poemomorphism</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="shortcut icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style type="text/css">
+    html, body {
+      width: 100%;
+      margin: 0;
+      padding: 0px;
+      background-color: #9E6240;
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 24pt;
+    }
+    body div {
+      width: 100%;
+      padding:8px;
+      box-sizing: border-box;
+    }
+    p {
+      margin: 0;
+    }
+    input {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+    input:focus {
+      outline: none;
+    }
+    body div * {
+      display: block;
+    }
+    div#lobby *,  div#input * {
+      font-family: 'Playfair Display', serif;
+      font-size: 24pt;
+    }
+    p.prompt {
+      font-weight: bold;
+    }
+    p.gameID, div.footer {
+      font-size: 12pt !important;
+    }
+    div.footer {
+      position: fixed;
+      bottom: 0;
+    }
+    a {
+      display: inline;
+      color: white;
+    }
+    div.footer a {
+      display: inline;
+    }
+    /* Hack copied from https://stackoverflow.com/questions/3790935/can-i-hide-the-html5-number-input-s-spin-box */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    input[type=number] {
+        -moz-appearance:textfield; /* Firefox */
+    }
+  </style>
+</head>
+<body>
+  <div id="lobby">
+    <div>
+      <input id="numplayers" type="number" placeholder="Number of players">
+      <a href="#" id="create">Create game</a>
+    </div>
+    <div>
+      <p>Or</p>
+    </div>
+    <div>
+      <input id="gamecode" type="text" placeholder="Enter game code here">
+      <a href="#" id="join">Join game</a>
+    </div>
+  </div>
+  <div id="game" style="display: none;">
+    <div id="poem">
+
+    </div>
+    <div id="input">
+      <input id="nextline" type="text" placeholder="Continue the poem...">
+      <a href="#" id="submit">Submit</a>
+    </div>
+  </div>
+  <div class="footer">
+    <p>Initial poetry prompts by <a href="https://thinkwritten.com/poetry-prompts/">Chell Stein</a>.</p>
+  </div>
+  <script src="./src/App.js"></script>
+</body>
+</html>
