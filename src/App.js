@@ -8,8 +8,9 @@ const server = `${protocol}//${hostname}:${port}`;
 
 class PoemomorphismClient {
     constructor(matchID, rootElement, { playerID, playerCredentials }) {
-        this.poemDisplay = rootElement.children[0];
-        this.lineEntry = rootElement.children[1];
+
+        this.poemDisplay = rootElement.children[0]; // An empty div that should hold poetry in <p> tags.
+        this.lineEntry = rootElement.children[1]; // Should contain a single <input> tag and a button or link to submit.
 
         this.client = Client({
             game: Poemomorphism,
@@ -21,10 +22,12 @@ class PoemomorphismClient {
         this.client.start();
         this.client.subscribe(state => this.update(playerID, state));
 
+        // The only move you can make: submitting a single line of poetry.
         this.lineEntry.children[1].onclick = event => {
             this.client.moves.writeLine(this.lineEntry.children[0].value);
             this.lineEntry.children[0].value = "";
         }
+
     }
 
     renderPoem(gameover, poem) {
@@ -38,7 +41,7 @@ class PoemomorphismClient {
     update(playerID, state) {
         if (state == null || state.ctx == null || state.G == null) return;
         this.poemDisplay.innerHTML = this.renderPoem(state.ctx.gameover, state.G.poem);
-        this.lineEntry.style.display = (state.ctx.gameover || !(playerID in state.ctx.activePlayers)) ? "none" : "";
+        this.lineEntry.style.display = (state.ctx.gameover || !(playerID in state.ctx.activePlayers)) ? "none" : ""; // Hide the input box if we're not in a state to submit poetry.
     }
 }
 
@@ -47,6 +50,8 @@ const lobbyElement = document.getElementById('lobby');
 
 const lobbyClient = new LobbyClient({ server });
 
+// Take the first five alphanumeric characters from the match ID to get a more easily-sharable code.
+// I'm guessing this won't be popular enough that we need to worry about collisions.
 function shortIDFromLong(matchID) {
     return matchID.replace(/\W/g, '').substring(0, 5);
 }

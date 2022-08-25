@@ -1,3 +1,5 @@
+// Prompts from https://thinkwritten.com/poetry-prompts/.  I'm 99.9% sure this is transformative use.
+
 const Prompts = [
     'Something that will always be out of reach.',
     'Write a poem where each line/sentence is about each day of last week.',

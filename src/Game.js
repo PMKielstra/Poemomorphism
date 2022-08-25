@@ -1,11 +1,14 @@
 import { getPrompts } from './Prompts';
 import { ActivePlayers, TurnOrder } from 'boardgame.io/core';
 
+// 
 function getPoemIndex(ctx, playerID) {
-    return (Number(ctx.currentPlayer) + Number(playerID)) % ctx.numPlayers;
+    // playerID is guaranteed to be numeric, but annoyingly it's stored and passed as a string.
+    return (ctx.turn - 1 + Number(playerID)) % ctx.numPlayers;
 }
 
 export const Poemomorphism = {
+    // The multiplayer server is capable of hosting several different games at once, so we need to name this one.  It's not shown to the user.
     name: 'poemomorphism',
 
     setup: (ctx) => ({ poems: getPrompts(ctx.numPlayers, ctx.random) }),
@@ -16,7 +19,7 @@ export const Poemomorphism = {
     turn: {
         order: TurnOrder.ONCE,
         activePlayers: ActivePlayers.ALL_ONCE,
-        endIf: (G, ctx) => ctx.activePlayers == null
+        endIf: (G, ctx) => ctx.activePlayers == null // End turn one everyone's had one go.
     },
 
     moves: {
@@ -24,7 +27,7 @@ export const Poemomorphism = {
             move: (G, ctx, line) => {
                 G.poems[getPoemIndex(ctx, ctx.playerID)].push(line);
             },
-            client: false
+            client: false // Since we use playerView to parcel out poems to each player, we can't just push directly to poems from the client.  That's done on the server.
         }
     },
 
