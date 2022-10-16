@@ -68,8 +68,10 @@ async function joinMatch(shortID) {
 }
 
 document.getElementById('create').onclick = async event => {
+    var linesPerPlayer = document.getElementById('lines').value;
     const { matchID } = await lobbyClient.createMatch('poemomorphism', {
-        numPlayers: Number(document.getElementById('numplayers').value)
+        numPlayers: Number(document.getElementById('numplayers').value),
+        setupData: { linesPerPlayer: linesPerPlayer ? Number(linesPerPlayer) : 1 }
     });
     joinMatch(shortIDFromLong(matchID)); // For ease of typing in on mobile
 }

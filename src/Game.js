@@ -11,7 +11,7 @@ export const Poemomorphism = {
     // The multiplayer server is capable of hosting several different games at once, so we need to name this one.  It's not shown to the user.
     name: 'poemomorphism',
 
-    setup: (ctx) => ({ poems: getPrompts(ctx.numPlayers, ctx.random) }),
+    setup: (ctx, setupData) => ({ poems: getPrompts(ctx.numPlayers, ctx.random), linesPerPlayer: setupData.linesPerPlayer }),
 
     // Abusing playerView a little bit: each player gets the poem they're currently trying to continue.  We're not so much stripping secrets as choosing them.
     playerView: (G, ctx, playerID) => ({ poem: G.poems[getPoemIndex(ctx, playerID)] }),
@@ -19,7 +19,7 @@ export const Poemomorphism = {
     turn: {
         order: TurnOrder.ONCE,
         activePlayers: ActivePlayers.ALL_ONCE,
-        endIf: (G, ctx) => ctx.activePlayers == null // End turn one everyone's had one go.
+        endIf: (G, ctx) => ctx.activePlayers == null // End turn once everyone's had one go.
     },
 
     moves: {
@@ -32,7 +32,7 @@ export const Poemomorphism = {
     },
 
     endIf: (G, ctx) => {
-        if (G.poems.every(x => x.length == ctx.numPlayers + 1)) {
+        if (G.poems.every(x => x.length == (G.linesPerPlayer * ctx.numPlayers) + 1)) {
             return true // If endIf returns anything, even `false`, the game ends, so we have to use an if() { return true }.  :-(
         }
     }
